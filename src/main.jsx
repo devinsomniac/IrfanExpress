@@ -6,7 +6,7 @@ import Document from "./pages/Document.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LogIn from "./pages/LogIn.jsx";
-import Register from "./pages/Register.jsx";
+import Register from "./pages/RegisterUser/Register.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
@@ -16,11 +16,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/Appointment",
-    element: <PrivateRoute element={Hospital}/>,
+    // element: <PrivateRoute element={Hospital}/>,
+    element:<Hospital/>
   },
   {
     path: "/DocumentPocket",
-    element: <PrivateRoute element={Document}/>,
+    // element: <PrivateRoute element={Document}/>,
+    element:<Document/>
   },
   {
     path:"/Login",

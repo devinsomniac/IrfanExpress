@@ -14,7 +14,7 @@ import SearchData from "@/Shared/SearchData";
 
 const Search = () => {
   return (
-    <div className="flex flex-col md:flex-row bg-white w-full md:w-max p-8 md:p-5 rounded-md md:rounded-full gap-5 items-center">
+    <div className="border shadow-2xl flex flex-col md:flex-row bg-white w-full md:w-max p-8 md:p-5 rounded-3xl md:rounded-full gap-5 items-center">
       <Select>
         <SelectTrigger className="w-[180px] outline-none md:border-none shadow-none text-lg">
           <SelectValue placeholder="Destination" />
@@ -51,7 +51,7 @@ const Search = () => {
             ))}
         </SelectContent>
       </Select>
-      <Button className="bg-yellow-300 text-blue-700 rounded-full"><IoSearchSharp /></Button>
+      <Button className="bg-yellow-300 text-blue-700 hover:text-yellow-300 hover:bg-blue-600 rounded-full"><IoSearchSharp /></Button>
     </div>
   );
 };

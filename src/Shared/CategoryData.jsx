@@ -24,6 +24,21 @@ const CategoryData = [
         name:'City',
         icon:'https://img.icons8.com/ios-glyphs/60/city-buildings.png'
     },
+    {
+        id:6,
+        name:"Pray",
+        icon:"https://img.icons8.com/ios-filled/50/prayer.png"
+    },
+    {
+        id:7,
+        name:"Tratment",
+        icon:"https://img.icons8.com/ios-filled/50/hospital.png"
+    },
+    {
+        id:8,
+        name:"Visa",
+        icon:"https://img.icons8.com/ios-filled/50/passport.png"
+    }
 ]
 
 export default CategoryData
