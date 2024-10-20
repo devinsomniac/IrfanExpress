@@ -1,29 +1,28 @@
-import React from 'react'
-import { useEffect,useState } from 'react'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
-const PrivateRoute = ({element:Component}) => {
-
-    const [isAuthenticated,setIsAuthenticated] = useState(null)
-    useEffect(()=>{
-        const checkAuth = async () => {
-            try{
-                const response = await axios.get("/api/auth/check",{ 
-                    withCredentials : true
-                })
-                setIsAuthenticated(response.data.authenticated);
-            }catch(e){
-                setIsAuthenticated(false)
-                console.log("There is an error in Authentication",e)
-            }
+const PrivateRoute = () => {
+  const [isAuthenticcated,setIsAuthenticated] = useState(null)
+  useEffect(()=>{
+    const checkAuth = async() =>{
+        try{
+            const response = await axios.get("/api/auth/check",{
+                withCredentials:true
+            })
+            setIsAuthenticated(response.data.authenticated) 
+        }catch(err){
+            setIsAuthenticated(false)
+            console.log("There is an error in Authentication",err)
         }
-        checkAuth()
-    },[])
+    }
+    checkAuth()
+  },[])
 
-    if (isAuthenticated === null) {
-        return <div>Loading...</div>;
-      }
-      return isAuthenticated ? <Component /> : <Navigate to="/Login" />;
+  if(isAuthenticcated === null){
+    return <div>Loading...</div>
+  }
+  return isAuthenticcated ? <Component/> : <Navigate to = "/Login" />
 }
 
 export default PrivateRoute

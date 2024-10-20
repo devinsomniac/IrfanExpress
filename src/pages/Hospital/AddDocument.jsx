@@ -6,7 +6,7 @@ const AddDocument = () => {
 
   const onfileSelected = (event) => {
     const files = event.target.files;
-    const fileArray = Array.from(files); // Convert file list to array
+    const fileArray = Array.from(files);
     setSelectedFiles((prev) => [...prev, ...fileArray]);
   };
 

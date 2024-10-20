@@ -16,13 +16,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/Appointment",
-    // element: <PrivateRoute element={Hospital}/>,
     element:<Hospital/>
   },
   {
     path: "/DocumentPocket",
-    // element: <PrivateRoute element={Document}/>,
-    element:<Document/>
+    element: <PrivateRoute element={Document}/>
   },
   {
     path:"/Login",
