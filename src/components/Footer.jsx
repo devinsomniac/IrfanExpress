@@ -5,11 +5,13 @@ const Footer = () => {
   return (
     <div>
       <footer className="bg-white lg:grid lg:grid-cols-5">
-        <div className="relative block h-32 lg:col-span-2 lg:h-full">
+        <div className="relative flex justify-center items-center h-32 lg:col-span-2 lg:h-full">
           <img
+            height={250}
+            width={200}
             src={logo}
             alt=""
-            className="absolute inset-0 h-full w-full object-contain p-8"
+            className="absolute inset-0  object-contain p-8"
           />
         </div>
 

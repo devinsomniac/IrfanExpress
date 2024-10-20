@@ -20,7 +20,10 @@ const PrivateRoute = () => {
   },[])
 
   if(isAuthenticcated === null){
-    return <div>Loading...</div>
+    setTimeout(() => {
+        return <div>Loading...</div>
+    }, 2000);
+    
   }
   return isAuthenticcated ? <Component/> : <Navigate to = "/Login" />
 }
