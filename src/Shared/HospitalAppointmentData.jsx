@@ -1,4 +1,4 @@
-const HospitalDetails = [
+export const HospitalDetails = [
     {
         label : "Patient's Name",
         name:"patientsName",
@@ -6,10 +6,9 @@ const HospitalDetails = [
         required:true,
     },
     {
-        label : "Hospital",
-        name:"hospital",
-        fieldType:"dropdown",
-        options:["Narayana health City, bangalore","Apollo Hospitals, Chennai","Narayana Kolkata","CMC ,Vellore","Other"],
+        label : "Emergency Contact",
+        name:"contact",
+        fieldType:"tel",
         required:true,
     },
     {
@@ -18,7 +17,7 @@ const HospitalDetails = [
         fieldType:"text",
     },
     {
-        label : "Attendent2",
+        label : "Attendent 2",
         name:"attendent2",
         fieldType:"text",
     },
@@ -34,14 +33,28 @@ const HospitalDetails = [
         fieldType:"email",
         required:true,
     },
+    // 
+    
+]
+
+export const MedicalCondition = [
     {
         label : "Medical Condition",
         name:"medicalCondition",
         fieldType:"dropdown",
-        options:["Cardiology","Oncology","Gastreotology","Dermitology","other"],
+        options:["Cardiology","Oncology","Gastreotology","Dermitology","Other"],
         required:true,
-    }
-    
+        },
+        
 ]
 
-export default HospitalDetails
+export const HospitalName = [
+    {
+        label : "Hospital",
+        name:"hospital",
+        fieldType:"dropdown",
+        options:["Narayana health City, bangalore","Apollo Hospitals, Chennai","Narayana Kolkata","CMC ,Vellore","Other"],
+        required:true,
+        },
+]
+

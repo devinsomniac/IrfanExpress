@@ -3,7 +3,7 @@ import CategoryData from '@/Shared/CategoryData'
 
 const Category = () => {
   return (
-    <div className='mt-48 md:mt-40 flex flex-col items-center justify-center'>
+    <div className='mt-48 flex flex-col items-center justify-center'>
       <h2 className="font-bold text-2xl text-center mb-6">Browse By Type</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-8 gap-6 px-20">
           {CategoryData.map((category,index)=>(

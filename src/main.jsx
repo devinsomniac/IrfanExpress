@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import Home from "./pages/Home.jsx";
-import Hospital from "./pages/Hospital.jsx";
+import Hospital from "./pages/Hospital/Hospital.jsx";
 import Document from "./pages/Document.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
