@@ -9,6 +9,7 @@ import LogIn from "./pages/LogIn.jsx";
 import Register from "./pages/RegisterUser/Register.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
+import Details from "./pages/Details/Details.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path:"/Register",
     element:<Register/>
+  },
+  {
+    path:"Details",
+    element:<Details/>
   }
 ]);
 
