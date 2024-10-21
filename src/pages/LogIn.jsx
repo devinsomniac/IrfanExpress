@@ -2,11 +2,13 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "@/components/AuthContext";
 
 const LogIn = () => {
+  const { setIsAuthenticated } = useContext(AuthContext); // Get context function
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,6 +27,7 @@ const LogIn = () => {
         }
       );
       if (response.data.authenticated) {
+        setIsAuthenticated(true); // Set authentication state in context
         navigate("/"); // Redirect to homepage after successful login
       } else {
         setErrorMessage("Invalid credentials, please try again.");

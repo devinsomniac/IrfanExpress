@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState ,  useContext  } from "react";
 import logo from "./../../public/logo.png";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import LogInAlert from "./LogInAlert";
 import { GiHamburgerMenu } from "react-icons/gi";
+import axios from "axios";
+import { AuthContext } from "./AuthContext";
 
 const Header = () => {
-  // State for toggling the mobile menu
   const [isOpen, setIsOpen] = useState(false);
-
+  const { isAuthenticated, logOut } = useContext(AuthContext);
   // Function to toggle the mobile menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -28,22 +29,31 @@ const Header = () => {
         <Link to={"/Appointment"}>
           <li className="list-none">Appointment</li>
         </Link>
-        <Link to={"/documentpocket"}>
+        {isAuthenticated ? <Link to={"/documentpocket"}>
           <li className="list-none">Documents</li>
-        </Link>
+        </Link> : <Link to={"/Login"}>
+          <li className="list-none">Documents</li>
+        </Link>}
+        
       </div>
-      <div className="flex gap-3">
-        <Link to={"Register"}>
-          <Button>Sign Up</Button>
-        </Link>
-        <LogInAlert />
-      </div>
+
+      {/* Handle authentication state rendering */}
+      {isAuthenticated === null ? (
+        <div>Loading...</div>
+      ) : isAuthenticated ? (
+        <Button onClick={logOut}>Sign Out</Button>
+      ) : (
+        <div className="flex gap-3">
+          <Link to={"Register"}>
+            <Button>Sign Up</Button>
+          </Link>
+          <LogInAlert />
+        </div>
+      )}
 
       <div className="md:hidden">
         <button onClick={toggleMenu}>
-          <div className="space-y-2">
-            <GiHamburgerMenu />
-          </div>
+          <GiHamburgerMenu />
         </button>
       </div>
 

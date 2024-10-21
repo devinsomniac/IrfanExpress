@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,6 +15,8 @@ import { Input } from "./ui/input";
 import { Link } from "react-router-dom";
 
 const LogInAlert = () => {
+  const [isAuthenticate,setIsAuthenticate] = useState(null)
+  
   return (
     <div>
       <AlertDialog>

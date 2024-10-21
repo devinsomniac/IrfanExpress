@@ -1,31 +1,17 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
+import { AuthContext } from './AuthContext'
+const PrivateRoute = ({element : Component}) => {
+  const { isAuthenticated } = useContext(AuthContext);
 
-const PrivateRoute = () => {
-  const [isAuthenticcated,setIsAuthenticated] = useState(null)
-  useEffect(()=>{
-    const checkAuth = async() =>{
-        try{
-            const response = await axios.get("/api/auth/check",{
-                withCredentials:true
-            })
-            setIsAuthenticated(response.data.authenticated) 
-        }catch(err){
-            setIsAuthenticated(false)
-            console.log("There is an error in Authentication",err)
-        }
-    }
-    checkAuth()
-  },[])
-
-  if(isAuthenticcated === null){
+  if(isAuthenticated === null){
     setTimeout(() => {
         return <div>Loading...</div>
     }, 2000);
     
   }
-  return isAuthenticcated ? <Component/> : <Navigate to = "/Login" />
+  return isAuthenticated ? <Component/> : <Navigate to = "/Login" />
 }
 
 export default PrivateRoute

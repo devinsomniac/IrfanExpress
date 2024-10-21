@@ -13,10 +13,10 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Frontend URL
-    methods: ['GET', 'POST', 'OPTIONS'], // Allow these methods
-    credentials: true, // Enable credentials (cookies, sessions)
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow required headers
+    origin: 'http://localhost:5173', 
+    methods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true, 
+    allowedHeaders: ['Content-Type', 'Authorization'], 
   })
 );
 
@@ -26,9 +26,9 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false,  // Should be false during development (since we're using http, not https)
-      httpOnly: true, // Makes the cookie inaccessible via JavaScript (for security)
-      sameSite: 'lax', // Allows the cookie to be sent with cross-origin requests
+      secure: false,  
+      httpOnly: true, 
+      sameSite: 'lax', 
     }
   }));
   
