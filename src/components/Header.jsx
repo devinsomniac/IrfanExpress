@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,  useContext  } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import logo from "./../../public/logo.png";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -29,21 +29,26 @@ const Header = () => {
         <Link to={"/Appointment"}>
           <li className="list-none">Appointment</li>
         </Link>
-        {isAuthenticated ? <Link to={"/documentpocket"}>
-          <li className="list-none">Documents</li>
-        </Link> : <Link to={"/Login"}>
-          <li className="list-none">Documents</li>
-        </Link>}
-        
+        {isAuthenticated ? (
+          <Link to={"/documentpocket"}>
+            <li className="list-none">Documents</li>
+          </Link>
+        ) : (
+          <Link to={"/Login"}>
+            <li className="list-none">Documents</li>
+          </Link>
+        )}
       </div>
 
       {/* Handle authentication state rendering */}
       {isAuthenticated === null ? (
         <div>Loading...</div>
       ) : isAuthenticated ? (
-        <Button onClick={logOut}>Sign Out</Button>
+        <Button className="hidden md:block" onClick={logOut}>
+          Sign Out
+        </Button>
       ) : (
-        <div className="flex gap-3">
+        <div className="gap-3 hidden md:flex">
           <Link to={"Register"}>
             <Button>Sign Up</Button>
           </Link>
@@ -69,10 +74,20 @@ const Header = () => {
             <Link to={"/documentpocket"} onClick={() => setIsOpen(false)}>
               <li className="list-none">Documents</li>
             </Link>
-            <Link to={"Register"} onClick={() => setIsOpen(false)}>
-              <Button>Sign Up</Button>
-            </Link>
-            <LogInAlert />
+            {isAuthenticated === null ? (
+              <div>Loading...</div>
+            ) : isAuthenticated ? (
+              <Button onClick={logOut}>
+                Sign Out
+              </Button>
+            ) : (
+              <div className="gap-3">
+                <Link to={"Register"}>
+                  <Button>Sign Up</Button>
+                </Link>
+                <LogInAlert />
+              </div>
+            )}
           </ul>
         </div>
       )}

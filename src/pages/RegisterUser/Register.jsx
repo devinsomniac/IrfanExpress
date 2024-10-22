@@ -8,6 +8,33 @@ import DatePick from "./Components/DatePick";
 import AddImage from "./Components/AddImage";
 
 const Register = () => {
+  const[formData,setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "",
+    dob: "",
+    address: "",
+    contact: "",
+    email: "",
+    passport: "",
+    password: "",
+  })
+  const handleChange = (e) => {
+    const {name,value} = e.target
+    setFormData((prev)=>(
+      {
+        ...prev,
+        [name]:value
+      }
+    ))
+
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(formData)
+
+  }
   return (
     <div>
       <Header />
@@ -23,11 +50,11 @@ const Register = () => {
                 item.fieldType == "tel" ||
                 item.fieldType == "password" ||
                 item.fieldType == "email" ? (
-                  <Input className="w-full" type={item.fieldType} />
+                  <Input className="w-full" name={item.name} type={item.fieldType} onChange = {handleChange} />
                 ) : item.fieldType == "dropdown" ? (
-                  <Gender item={item}/>
+                  <Gender item={item} name={item.name} onChange={handleChange} />
                 ) : item.fieldType == "date" ? (
-                  <DatePick />
+                  <DatePick name={item.name} onChange={handleChange} />
                 ) : null}
               </div>
             ))}
@@ -36,7 +63,7 @@ const Register = () => {
             <AddImage/>
           </div>
           <div className="flex justify-end">
-          <Button>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
           </div>
         </form>
       </div>
