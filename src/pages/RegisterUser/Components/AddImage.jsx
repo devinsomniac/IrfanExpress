@@ -1,15 +1,39 @@
+import { storage } from '@/config/firebase';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import React, { useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
 
-const AddImage = () => {
+const AddImage = ({onImageUpload}) => {
   const [image, setImage] = useState(null);
+  const [uploading,setUploading] = useState(false)
 
   // Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      // const imageUrl = URL.createObjectURL(file);
+      // setImage(imageUrl);
+      const storageRef = ref(storage,`images/${file.name}`)
+      const uploadTask = uploadBytesResumable(storageRef,file)
+      setUploading(true)
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+          console.log(`upload is ${progress}% done`)
+        },
+        (error) => {
+          console.log("upload failed :",error)
+          setUploading(false)
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File Available at : ",downloadURL)
+            setImage(downloadURL)
+            onImageUpload(downloadURL)
+          })
+        }
+      )
+      
     }
   };
 
@@ -29,7 +53,7 @@ const AddImage = () => {
           onChange={handleImageUpload}
         />
         
-        {/* Display the uploaded image */}
+        {/* Display the uploaded image */} 
         {image && (
           <>
           <div><h2 className='text-center font-medium text-xl'>You Look Great !!</h2></div>

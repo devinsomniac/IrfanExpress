@@ -10,5 +10,6 @@ export const UserList = pgTable('userDetails',{
     contact:varchar('contact').notNull(),
     email:varchar('email').notNull().unique(),
     passport:varchar('passport').notNull(),
-    password:varchar('password').notNull()
+    password:varchar('password').notNull(),
+    imageurl:varchar('imageurl')
 })

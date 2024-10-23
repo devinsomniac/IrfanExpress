@@ -66,6 +66,14 @@ app.post('/api/auth/logout', (req, res) => {
     });
 });
 
+app.post("/api/register",(req,res) => {
+  console.log(req.body);
+
+  // Send a success response back to the client
+  res.send({ message: "Form data received successfully", formData: req.body });
+  
+})
+
 
 
 app.listen(port,()=>{
