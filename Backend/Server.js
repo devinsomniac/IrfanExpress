@@ -88,17 +88,6 @@ app.post("/api/auth/login", async(req,res) => {
       console.log("There is an error in Log In")
       res.status(500).json({ message: "Login failed" });
     }
-    // if(email === DEFAULT_EMAIL && password === DEFAULT_PASSWORD){
-    //     req.session.authenticated = true
-    //     return res.status(200).json({
-    //         message : "Authenticated",
-    //         authenticated : true
-    //     })
-    // }
-    // return res.status(401).json({
-    //     message: "Invalid email or password",
-    //     authenticated:false
-    // })
 })
 
 app.get('/api/auth/check', (req, res) => {

@@ -41,8 +41,8 @@ const LogIn = () => {
   return (
     <div>
       <Header />
-      <div className="flex flex-col justify-center items-center w-full h-full p-10 ">
-        <div className="rounded-2xl p-10 bg-slate-300 border border-dashed border-black">
+      <div className=" flex flex-col justify-center items-center w-full h-full p-10 ">
+        <div className="rounded-2xl p-10 bg-[#f7f5ff] border shadow-2xl">
           <label>Enter Your Email Address </label>
           <Input
             type="email"
