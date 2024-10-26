@@ -17,29 +17,35 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import axios from "axios";
 
+
 const LogInAlert = () => {
   const {setIsAuthenticated} = useContext(AuthContext)
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const navigate = useNavigate()
-  const checkAuth = async() =>{
-    try{
-      const response = await axios.post("http://localhost:3000/api/auth/login",{email,password},{
-        headers:{
-          "Content-Type":"application/json"
-        },
-        withCredentials:true
-      })
-      if(response.data.authenticated){
-        setIsAuthenticated(true)
-        navigate("/")
-      }else{
+  const checkAuth = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        { email, password },
+        {
+          headers: {
+            "Content-Type": "application/json", // Ensure the correct content type
+          },
+          withCredentials: true, // Include credentials for session cookies
+        }
+      );
+      if (response.data.authenticated) {
+        setIsAuthenticated(true); // Set authentication state in context
+        navigate("/"); // Redirect to homepage after successful login
+      } else {
         setErrorMessage("Invalid credentials, please try again.");
       }
-    }catch(err){
-      console.log("Error in log in")
+    } catch (err) {
+      console.log("There is an error in Authentication", err);
+      setErrorMessage("Authentication failed, please try again.");
     }
-  }
+  };
   return (
     <div>
       <AlertDialog>

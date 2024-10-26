@@ -83,7 +83,8 @@ app.post("/api/auth/login", async(req,res) => {
         return res.status(401).json({message:"Invalid Email or Password",authenticated:false})
       }
       req.session.authenticated = true
-      res.status(200).json({message:"Authenticated",authenticated:true})
+      req.session.userId = user[0].id;
+      res.status(200).json({message:"Authenticated",authenticated:true,userId: user[0].id})
     }catch(err){
       console.log("There is an error in Log In")
       res.status(500).json({ message: "Login failed" });
@@ -92,7 +93,7 @@ app.post("/api/auth/login", async(req,res) => {
 
 app.get('/api/auth/check', (req, res) => {
     if (req.session.authenticated) {
-        return res.status(200).json({ authenticated: true });
+        return res.status(200).json({ authenticated: true , userId: req.session.userId});
     }
     return res.status(200).json({ authenticated: false });
 });

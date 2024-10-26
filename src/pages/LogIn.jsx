@@ -8,7 +8,7 @@ import axios from "axios";
 import { AuthContext } from "@/components/AuthContext";
 
 const LogIn = () => {
-  const { setIsAuthenticated } = useContext(AuthContext); // Get context function
+  const { setIsAuthenticated,setUserId } = useContext(AuthContext); // Get context function
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,7 +27,8 @@ const LogIn = () => {
         }
       );
       if (response.data.authenticated) {
-        setIsAuthenticated(true); // Set authentication state in context
+        setIsAuthenticated(true);
+        setUserId(response.data.userId) // Set authentication state in context
         navigate("/"); // Redirect to homepage after successful login
       } else {
         setErrorMessage("Invalid credentials, please try again.");

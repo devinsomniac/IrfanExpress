@@ -4,10 +4,22 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import LogInAlert from "./LogInAlert";
 import { GiHamburgerMenu } from "react-icons/gi";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa";
 import { AuthContext } from "./AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ImSpinner } from "react-icons/im";
+
 
 const Header = () => {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, logOut } = useContext(AuthContext);
   // Function to toggle the mobile menu
@@ -42,11 +54,18 @@ const Header = () => {
 
       {/* Handle authentication state rendering */}
       {isAuthenticated === null ? (
-        <div>Loading...</div>
+        <div className="flex justify-center items-center"><ImSpinner className="animate-spin" /></div>
       ) : isAuthenticated ? (
-        <Button className="hidden md:block" onClick={logOut}>
-          Sign Out
-        </Button>
+        <div className="mr-5 hidden md:block">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="p-3 rounded-full bg-slate-200 text-2xl border"><FaRegUser />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => navigate("/Profile")} >Profile</DropdownMenuItem>
+              <DropdownMenuItem onClick={logOut}>Sign Out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       ) : (
         <div className="gap-3 hidden md:flex">
           <Link to={"Register"}>
@@ -77,9 +96,10 @@ const Header = () => {
             {isAuthenticated === null ? (
               <div>Loading...</div>
             ) : isAuthenticated ? (
-              <Button onClick={logOut}>
-                Sign Out
-              </Button>
+              <div className="gap-3 flex flex-col">
+                <Button onClick={logOut}>Sign Out</Button>
+                <Button>Profile</Button>
+              </div>
             ) : (
               <div className="gap-3">
                 <Link to={"Register"}>

@@ -5,7 +5,7 @@ import HeroImage from "./../assets/Hero.png"
 
 const Hero = () => {
   return (
-    <div className='flex bg-slate-200 flex-col items-center p-8  gap-6 h-[450px] w-full'>
+    <div className='flex bg-slate-100 flex-col items-center p-8  gap-6 h-[450px] w-full'>
             <h2 className='text-center font-bold text-4xl'>Find The best destination for you with us</h2>
             <h2 className='text-center font-bold text-2xl'>Get Your Dream Travel Adventure!</h2>
             <Search/>
