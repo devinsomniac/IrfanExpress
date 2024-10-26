@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: 'http://localhost:5173', 
-    methods: ['GET', 'POST', 'OPTIONS'],
+    methods: ['GET', 'POST', 'OPTIONS' , 'PUT'],
     credentials: true, 
     allowedHeaders: ['Content-Type', 'Authorization'], 
   })
@@ -35,8 +35,6 @@ app.use(
     }
   }));
   
-const DEFAULT_EMAIL = 'test@example.com';
-const DEFAULT_PASSWORD = 'password123';
 
 
 app.post("/api/register", async (req, res) => {
@@ -106,6 +104,57 @@ app.post('/api/auth/logout', (req, res) => {
     });
 });
 
+
+app.get("/api/user/:id", async(req,res) => {
+  const userId = req.params.id
+
+  if(!req.session.authenticated){
+    res.status(401).json({message:"Unauthorized access"})
+  }
+  try{
+    const user = await db.select().from(UserList).where(eq(UserList.id,userId))
+    if (user.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const { id,firstName, lastName, gender, dob, address, contact, email, passport, imageUrl } = user[0];
+    return res.status(200).json({
+      id,
+      firstName,
+      lastName,
+      gender,
+      dob,
+      address,
+      contact,
+      email,
+      passport,
+      imageUrl,
+    });
+  }catch(err){
+    console.log("There has been an error",err)
+    return res.status(500).json({ message: "Failed to fetch user profile" });
+  }
+})
+
+app.put('/api/updateUser/:id', async (req, res) => {
+  const { id } = req.params;
+  const updatedUserData = req.body;
+
+  // Logic to find user by ID and update
+  try {
+    const result = await db.update(UserList)
+      .set(updatedUserData)
+      .where(eq(UserList.id, id))
+      .execute();
+
+    if (result.changes === 0) {
+      return res.status(404).json({ message: "User not found or no changes made" });
+    }
+    res.status(200).json({ message: 'User updated successfully', result });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: 'Error updating user data', error });
+  }
+});
 
 
 

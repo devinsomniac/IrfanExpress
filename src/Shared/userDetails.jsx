@@ -48,18 +48,18 @@ const userDetails = [
         fieldType: "text",
         required: true,
     },
-    {
-      label: "Password",
-      name: "password",
-      fieldType: "password",
-      required: true,
-    },
-    {
-      label: "Confirm Password",
-      name: "confirmPassword",
-      fieldType: "password",
-      required: true,
-    },
+    // {
+    //   label: "Password",
+    //   name: "password",
+    //   fieldType: "password",
+    //   required: true,
+    // },
+    // {
+    //   label: "Confirm Password",
+    //   name: "confirmPassword",
+    //   fieldType: "password",
+    //   required: true,
+    // },
   ];
 
   export default userDetails

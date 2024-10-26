@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import userDetails from "@/Shared/userDetails";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,7 +20,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const Register = () => {
+const Register = ({ userData }) => {
+  console.log(userData)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -36,9 +37,27 @@ const Register = () => {
   });
 
   const [passwordError, setPasswordError] = useState("");
-  const [loading, setLoading] = useState(false); // loading state
-  const [dialogOpen, setDialogOpen] = useState(false); // dialog open state
+  const [loading, setLoading] = useState(false); 
+  const [dialogOpen, setDialogOpen] = useState(false); 
   const navigate = useNavigate();
+ 
+  useEffect(() => {
+    if (userData) {
+      setFormData({
+        firstName: userData.firstName || "",
+        lastName: userData.lastName || "",
+        gender: userData.gender || "",
+        dob: userData.dob || "",
+        address: userData.address || "",
+        contact: userData.contact || "",
+        email: userData.email || "",
+        passport: userData.passport || "",
+        // password: "", // Reset password fields
+        // confirmPassword: "",
+        // imageUrl: userData.imageUrl || "",
+      });
+    }
+  }, [userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,33 +76,34 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("Form data:", formData);
+    console.log("User data:", userData);
+  
     if (formData.password !== formData.confirmPassword) {
       setPasswordError("Passwords do not match");
       return;
     } else {
       setPasswordError("");
     }
-
+  
     console.log(formData);
-    setLoading(true); // start loading
-    setDialogOpen(true); // open dialog
-
+    setLoading(true);
+    setDialogOpen(true);
+  
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/register",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios({
+        method: userData ? "PUT" : "POST", // Use PUT if userData exists
+        url: userData ? `http://localhost:3000/api/updateUser/${userData.id}` : "http://localhost:3000/api/register",
+        data: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       console.log("Form submitted successfully:", response.data);
     } catch (err) {
       console.log("There has been an error", err);
     } finally {
-      setLoading(false); // stop loading when request finishes
+      setLoading(false);
     }
   };
 
@@ -102,25 +122,51 @@ const Register = () => {
                 </label>
                 {item.fieldType === "text" ||
                 item.fieldType === "tel" ||
-                item.fieldType === "password" ||
                 item.fieldType === "email" ? (
                   <Input
                     className="w-full"
                     name={item.name}
                     type={item.fieldType}
                     onChange={handleChange}
+                    value={formData[item.name]}
                   />
                 ) : item.fieldType === "dropdown" ? (
                   <Gender
                     item={item}
                     name={item.name}
                     onChange={handleChange}
+                    value={formData[item.name]}
                   />
                 ) : item.fieldType === "date" ? (
-                  <DatePick name={item.name} onChange={handleChange} />
+                  <DatePick name={item.name} value={formData[item.name]} onChange={handleChange} />
                 ) : null}
+                
               </div>
             ))}
+             {!userData && (
+            <>
+              <div className="flex flex-col">
+                <label>Password</label>
+                <Input
+                  className="w-full"
+                  name="password"
+                  type="password"
+                  onChange={handleChange}
+                  value={formData.password}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Confirm Password</label>
+                <Input
+                  className="w-full"
+                  name="confirmPassword"
+                  type="password"
+                  onChange={handleChange}
+                  value={formData.confirmPassword}
+                />
+              </div>
+            </>
+          )}
           </div>
           {/* Show password mismatch error */}
           {passwordError && (

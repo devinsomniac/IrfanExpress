@@ -6,15 +6,18 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "@/components/AuthContext";
+import { ImSpinner } from "react-icons/im";
 
 const LogIn = () => {
   const { setIsAuthenticated,setUserId } = useContext(AuthContext); // Get context function
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate(); // Use navigate for redirection
 
   const checkAuth = async () => {
+    setLoading(true)
     try {
       const response = await axios.post(
         "http://localhost:3000/api/auth/login",
@@ -36,6 +39,8 @@ const LogIn = () => {
     } catch (err) {
       console.log("There is an error in Authentication", err);
       setErrorMessage("Authentication failed, please try again.");
+    }finally {
+      setLoading(false); // Reset loading state after the request completes
     }
   };
 
@@ -60,7 +65,13 @@ const LogIn = () => {
           />
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           <div className="flex gap-4 justify-center p-5">
-            <Button onClick={checkAuth}>Log In</Button>
+            <Button onClick={checkAuth} disabled={loading}>
+            {loading ? (
+                <ImSpinner className="animate-spin" /> // Show spinner while loading
+              ) : (
+                "Log In"
+              )}
+            </Button>
             <Button>
               <img
                 src="https://img.icons8.com/color/96/google-logo.png"

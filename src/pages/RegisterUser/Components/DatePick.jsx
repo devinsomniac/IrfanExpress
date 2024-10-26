@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -10,9 +10,13 @@ import {
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 
-const DatePick = ({ name, onChange }) => {
+const DatePick = ({ name, onChange ,value }) => {
   const [date, setDate] = useState(null);
-
+  useEffect(() => {
+    if (value) {
+      setDate(new Date(value)); // Create a Date object from the value
+    }
+  }, [value]);
   const handleDateChange = (selectedDate) => {
     setDate(selectedDate);
     // Pass the formatted date string to the onChange handler

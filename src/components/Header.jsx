@@ -26,7 +26,10 @@ const Header = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  const handleLogOut = () => {
+    logOut();
+    navigate("/"); // Redirect to home after logging out
+  };
   return (
     <div className="p-5 flex justify-between items-center">
       <div>
@@ -62,7 +65,7 @@ const Header = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={() => navigate("/Profile")} >Profile</DropdownMenuItem>
-              <DropdownMenuItem onClick={logOut}>Sign Out</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogOut}>Sign Out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
